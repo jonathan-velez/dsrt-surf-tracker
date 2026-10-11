@@ -11,6 +11,9 @@ and migration to a VPS or Cloudflare. The schedules are configured; future
 scheduled executions have not yet been observed. The Docker instructions below
 remain available for local use or a VPS.
 
+Both hosted validation runs passed. Local Docker collectors are stopped to
+avoid duplicate monitoring; their history volumes remain intact.
+
 Pricing notifications use the existing destination stored in GitHub's
 `PRICING_NTFY_URL` secret. Daily availability notifications remain muted unless
 `AVAILABILITY_NTFY_URL` is also configured.

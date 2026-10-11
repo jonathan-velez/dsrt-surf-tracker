@@ -12,6 +12,12 @@ branch contains 166 pricing groups, 1,115 upcoming sessions across 13 queried
 months, and an error-free status record. The user confirmed receipt of the
 labeled migration test through the existing ntfy destination. Daily reports
 remain muted. Future scheduled invocations are not yet verified by observation.
+The second run [38177206483](https://github.com/jonathan-velez/dsrt-surf-tracker/actions/runs/38177206483)
+successfully restored the baselines, reused the daily slot cache, and completed
+with no errors or pending notifications. Both local Compose containers were
+then stopped; `changedetection-data` and `availability-data` volumes remain
+intact with the historical local records. To resume the fallback, use
+`docker compose start` after disabling GitHub's workflow.
 For later delivery checks, run the workflow with `notification_test=true`; this
 sends a clearly labeled test, not a simulated pricing change.
 
