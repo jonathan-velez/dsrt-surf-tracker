@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Apply the user's ignored pricing settings to both local active watches.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+pricing=${1:-.local/watch.json}
+if [[ ! -f "$pricing" ]]; then
+  echo 'Missing local notification configuration; supply the ignored pricing JSON.' >&2
+  exit 1
+fi
+jq -e '.notification_muted == false and (.notification_urls | type == "array" and length > 0)' "$pricing" > /dev/null
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+jq --slurpfile pricing "$pricing" \
+  '. + {notification_muted: false, notification_urls: $pricing[0].notification_urls}' \
+  config/availability.json > "$tmp/availability.json"
+./scripts/setup-watch.sh "$pricing"
+./scripts/setup-watch.sh "$tmp/availability.json" none

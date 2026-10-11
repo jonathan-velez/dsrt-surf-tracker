@@ -1,25 +1,12 @@
 # DSRT Surf price monitor
 
-## GitHub deployment
+changedetection.io monitors **published public reef pricing** every three hours at [localhost:5050](http://localhost:5050), with an optional catalog watch and a daily upcoming-availability watch. A small internal Python HTTP helper combines monthly calendars for the availability watch.
 
-The portable batch runner and scheduled Actions workflow are active on GitHub.
-The first hosted collection succeeded on October 11, 2026 at 14:37 Los Angeles
-time, saving 166 pricing groups and 1,115 upcoming sessions across 13 queried
-months. The pricing notification test was received by the user. See
-[GitHub deployment](docs/github-deployment.md) for state retention, notifications,
-and migration to a VPS or Cloudflare. The schedules are configured; future
-scheduled executions have not yet been observed. The Docker instructions below
-remain available for local use or a VPS.
-
-Both hosted validation runs passed. Local Docker collectors are stopped to
-avoid duplicate monitoring; their history volumes remain intact.
-
-Pricing notifications use the existing destination stored in GitHub's
-`PRICING_NTFY_URL` secret. Daily availability reports are enabled on the same
-destination through `AVAILABILITY_NTFY_URL`. Each nightly report includes a
-summary and a link to the saved full report when it exceeds notification limits.
-
-changedetection.io monitors **published public reef pricing** every three hours at [localhost:5050](http://localhost:5050), with an optional catalog watch and a daily upcoming-availability watch. A small internal Python HTTP helper combines monthly calendars for the availability watch. Notifications start muted.
+Local Docker monitoring is restored. Pricing and daily availability notifications
+use the existing ntfy destination; the optional catalog remains paused and muted.
+GitHub Actions monitoring is disabled and its workflow removed. GitHub's saved
+records remain on the `monitor-data` branch and are archived under ignored
+`.local/archive/`; they have not been imported into local dashboard history.
 
 ## Start / stop
 
@@ -28,7 +15,9 @@ Prerequisites: Docker Desktop running on macOS (Apple Silicon supported), Docker
 ```sh
 docker compose up -d
 # Wait for the dashboard to load, then:
-./scripts/setup-watch.sh
+# Existing configured deployment (preserves enabled alerts for both watches):
+bash scripts/setup-local.sh
+# Fresh setup without notifications: ./scripts/setup-watch.sh
 ```
 
 Open http://localhost:5050. The official image is pinned to the tested digest (changedetection.io 0.60.8); it includes Python jq. The web port binds only to `127.0.0.1`, with timezone `America/Los_Angeles`. State and history live in the named Docker volume.
@@ -62,7 +51,13 @@ Grouping hides a session's expiration when another session still represents the 
 
 ## Settings and history
 
-Edit `config/watch.json` and rerun `./scripts/setup-watch.sh`. Edit `filters/sessions.jq` the same way. The script finds the exact title, creates or updates one watch, and refuses ambiguous duplicate titles. Keep the title stable to retain identity/history. Running setup reapplies the file's notification settings, including muted defaults.
+For this configured deployment, edit ignored `.local/watch.json` and rerun
+`bash scripts/setup-local.sh`. This applies its existing notification destination
+to both pricing and availability watches. Edit `filters/sessions.jq` the same way.
+The setup script finds the exact title, creates or updates one watch, and refuses
+ambiguous duplicate titles. Keep titles stable to retain identity/history.
+Tracked `config/*.json` are muted templates: applying them directly will mute
+the corresponding watch.
 
 Change `time_between_check.hours` to adjust polling. Checks use the normal HTTP fetcher. Click the watch's **Diff/history** controls to inspect saved versions; the watch's human-facing link opens [DSRT's calendar](https://book.dsrtsurf.com/app.html#/calendar). Filter changes can themselves cause a historical diff.
 
@@ -87,7 +82,7 @@ cp config/watch.json .local/watch.json
 ./scripts/setup-watch.sh .local/watch.json
 ```
 
-The prepared message identifies a **pricing change** and links to the booking calendar. It does not claim price-drop-only alerts. No notification delivery was tested because no destination was supplied. A future strict decrease-only mode would need a small comparator at a notification/webhook boundary that matches group identities and compares numeric tiers; native textual diffs alone are insufficient. This is intentionally not implemented.
+The prepared message identifies a **pricing change** and links to the booking calendar. It does not claim price-drop-only alerts. The existing ntfy destination is configured for both local active watches and kept out of version control. A future strict decrease-only mode would need a small comparator at a notification/webhook boundary that matches group identities and compares numeric tiers; native textual diffs alone are insufficient. This is intentionally not implemented.
 
 ## Optional catalog
 
@@ -105,7 +100,7 @@ The third watch, **DSRT Surf — Daily Upcoming Availability**, runs in CD's **2
 
 ```sh
 docker compose up -d availability
-./scripts/setup-watch.sh config/availability.json none
+bash scripts/setup-local.sh
 python3 tests/test_availability.py
 ```
 
@@ -115,7 +110,9 @@ The report lists availability decreases/increases, new and removed sessions, exp
 
 Malformed responses, HTTP failures, conflicting overlap records, and an entirely empty public calendar fail the watch without replacing the previous valid baseline. A syntactically valid partial API response cannot always be detected. Successful raw responses and reports persist in the `availability-data` Docker volume; CD also retains its usual history in `changedetection-data`. The helper has no host port and is reachable only on the Compose network at `http://availability:8080/report`. It reuses the already-pinned image's Python runtime, with no additional packages. The mistakenly created Codex chat automation is paused; scheduling belongs to CD.
 
-Notifications are muted like the existing watches. Daily reports are stored even on no-change days; configure a destination and unmute in CD if external delivery is wanted.
+Daily reports are stored even on no-change days. Notifications are enabled on the
+same existing ntfy destination as pricing. Use `bash scripts/setup-local.sh` to
+reapply this configuration; the tracked availability JSON remains a muted template.
 
 ## Verification / troubleshooting
 

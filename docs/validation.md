@@ -1,5 +1,28 @@
 # Deployment validation — 2026-10-11
 
+## Local restoration after GitHub trial
+
+The original Compose containers and named history volumes were restored without
+deleting or resetting watches. The dashboard returned HTTP 200 at
+`http://localhost:5050`. Pricing remains active every three hours; availability
+remains active in the 22:00–23:00 Los Angeles window. Both use the existing ntfy
+destination with notifications enabled; catalog remains paused/muted. Both active
+watches initially reported no fetch errors. `bash scripts/setup-local.sh` reapplies
+the ignored pricing notification settings to both active watches.
+
+Manual rechecks of both active watches completed successfully with no fetch or
+notification errors. Pricing retained its prior snapshots and added the current
+observation; availability reused its existing daily cache and retained its history.
+
+GitHub Actions monitoring was disabled, and its workflow/batch implementation was
+removed from the current source. `monitor-data` retains GitHub observations; a
+current-tree export is also saved in ignored
+`.local/archive/github-monitor-data-2026-10-11.tar.gz`. Those observations are not
+imported into changedetection.io history. The full-history hybrid proposal was
+moved to `.local/archive/hybrid-dashboard-plan.md` for later reference.
+
+The existing 24 normalization checks and six availability tests pass.
+
 Environment: macOS Apple Silicon, Docker Desktop, official ARM64 changedetection.io 0.60.8 image pinned by digest in Compose. The official image contains jq bindings; no custom image or installed dependency was needed.
 
 ## Production instance
