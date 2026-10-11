@@ -1,0 +1,1334 @@
+{
+  "captured_at": "2026-10-11T14:37:10.740915-07:00",
+  "groups": [
+    {
+      "day": "Friday",
+      "prices": [
+        200
+      ],
+      "session": "Advanced Turns",
+      "time": "11:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        210
+      ],
+      "session": "Advanced Turns",
+      "time": "17:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        200
+      ],
+      "session": "Advanced Turns",
+      "time": "11:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        210
+      ],
+      "session": "Advanced Turns",
+      "time": "17:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        220
+      ],
+      "session": "Advanced Turns",
+      "time": "11:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        230
+      ],
+      "session": "Advanced Turns",
+      "time": "17:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        220
+      ],
+      "session": "Advanced Turns",
+      "time": "11:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        230
+      ],
+      "session": "Advanced Turns",
+      "time": "17:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        200
+      ],
+      "session": "Advanced Turns",
+      "time": "11:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        210
+      ],
+      "session": "Advanced Turns",
+      "time": "17:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        200
+      ],
+      "session": "Advanced Turns",
+      "time": "11:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        210
+      ],
+      "session": "Advanced Turns",
+      "time": "17:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        200
+      ],
+      "session": "Advanced Turns",
+      "time": "11:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        210
+      ],
+      "session": "Advanced Turns",
+      "time": "17:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        320
+      ],
+      "session": "Air Camp",
+      "time": "20:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        270
+      ],
+      "session": "Chamber Barrels",
+      "time": "14:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        270
+      ],
+      "session": "Chamber Barrels",
+      "time": "14:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        270
+      ],
+      "session": "Chamber Barrels",
+      "time": "14:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        270
+      ],
+      "session": "Chamber Barrels",
+      "time": "14:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        270
+      ],
+      "session": "Chamber Barrels",
+      "time": "14:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        270
+      ],
+      "session": "Chamber Barrels",
+      "time": "14:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        130
+      ],
+      "session": "Closed",
+      "time": "15:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        180
+      ],
+      "session": "Closed",
+      "time": "16:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        260
+      ],
+      "session": "Closed",
+      "time": "17:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        200
+      ],
+      "session": "Closed",
+      "time": "18:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        220
+      ],
+      "session": "Closed",
+      "time": "19:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        270
+      ],
+      "session": "Closed",
+      "time": "20:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        230
+      ],
+      "session": "Critical Carving",
+      "time": "12:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        230
+      ],
+      "session": "Critical Carving",
+      "time": "16:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        230
+      ],
+      "session": "Critical Carving",
+      "time": "12:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        250
+      ],
+      "session": "Critical Carving",
+      "time": "12:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        230
+      ],
+      "session": "Critical Carving",
+      "time": "12:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        230
+      ],
+      "session": "Critical Carving",
+      "time": "12:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        230
+      ],
+      "session": "Critical Carving",
+      "time": "12:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        220
+      ],
+      "session": "Critical Carving & Turns",
+      "time": "19:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        220
+      ],
+      "session": "Critical Carving & Turns",
+      "time": "19:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        220
+      ],
+      "session": "Critical Carving & Turns",
+      "time": "19:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        220
+      ],
+      "session": "Critical Carving & Turns",
+      "time": "19:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        220
+      ],
+      "session": "Critical Carving & Turns",
+      "time": "19:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        220
+      ],
+      "session": "Critical Carving & Turns",
+      "time": "19:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        200
+      ],
+      "session": "Critical Turns",
+      "time": "09:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        200
+      ],
+      "session": "Critical Turns",
+      "time": "18:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        200
+      ],
+      "session": "Critical Turns",
+      "time": "09:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        200
+      ],
+      "session": "Critical Turns",
+      "time": "18:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        200
+      ],
+      "session": "Critical Turns",
+      "time": "09:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        200
+      ],
+      "session": "Critical Turns",
+      "time": "18:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        200
+      ],
+      "session": "Critical Turns",
+      "time": "09:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        200
+      ],
+      "session": "Critical Turns",
+      "time": "18:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        200
+      ],
+      "session": "Critical Turns",
+      "time": "09:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        200
+      ],
+      "session": "Critical Turns",
+      "time": "18:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        200
+      ],
+      "session": "Critical Turns",
+      "time": "09:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        200
+      ],
+      "session": "Critical Turns",
+      "time": "18:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        190
+      ],
+      "session": "Cruiser Carving Shortboard",
+      "time": "17:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        190
+      ],
+      "session": "Cruiser Carving Shortboard",
+      "time": "16:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        190
+      ],
+      "session": "Cruiser Carving Shortboard",
+      "time": "16:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        190
+      ],
+      "session": "Cruiser Carving Shortboard",
+      "time": "16:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        190
+      ],
+      "session": "Cruiser Carving Shortboard",
+      "time": "16:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        130
+      ],
+      "session": "Easy Longboarding",
+      "time": "15:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        130
+      ],
+      "session": "Easy Longboarding",
+      "time": "15:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        130
+      ],
+      "session": "Easy Longboarding",
+      "time": "15:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        130
+      ],
+      "session": "Easy Longboarding",
+      "time": "15:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        130
+      ],
+      "session": "Easy Longboarding",
+      "time": "15:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        130
+      ],
+      "session": "Easy Longboarding",
+      "time": "15:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        220
+      ],
+      "session": "Expert Barrels",
+      "time": "13:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        220
+      ],
+      "session": "Expert Barrels",
+      "time": "13:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        240
+      ],
+      "session": "Expert Barrels",
+      "time": "13:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        240
+      ],
+      "session": "Expert Barrels",
+      "time": "13:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        220
+      ],
+      "session": "Expert Barrels",
+      "time": "13:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        220
+      ],
+      "session": "Expert Barrels",
+      "time": "13:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        220
+      ],
+      "session": "Expert Barrels",
+      "time": "13:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        190
+      ],
+      "session": "Expert Turns",
+      "time": "08:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        180
+      ],
+      "session": "Expert Turns",
+      "time": "15:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        190
+      ],
+      "session": "Expert Turns",
+      "time": "08:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        180
+      ],
+      "session": "Expert Turns",
+      "time": "15:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        210
+      ],
+      "session": "Expert Turns",
+      "time": "08:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        210
+      ],
+      "session": "Expert Turns",
+      "time": "15:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        210
+      ],
+      "session": "Expert Turns",
+      "time": "08:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        210
+      ],
+      "session": "Expert Turns",
+      "time": "15:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        190
+      ],
+      "session": "Expert Turns",
+      "time": "08:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        180
+      ],
+      "session": "Expert Turns",
+      "time": "15:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        190
+      ],
+      "session": "Expert Turns",
+      "time": "08:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        180
+      ],
+      "session": "Expert Turns",
+      "time": "15:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        190
+      ],
+      "session": "Expert Turns",
+      "time": "08:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        180
+      ],
+      "session": "Expert Turns",
+      "time": "15:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        130
+      ],
+      "session": "Malibu Beginner",
+      "time": "16:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        130
+      ],
+      "session": "Malibu Beginner",
+      "time": "16:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        140
+      ],
+      "session": "Malibu Beginner",
+      "time": "16:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        140
+      ],
+      "session": "Malibu Beginner",
+      "time": "16:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        130
+      ],
+      "session": "Malibu Beginner",
+      "time": "16:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        130
+      ],
+      "session": "Malibu Beginner",
+      "time": "16:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        130
+      ],
+      "session": "Malibu Beginner",
+      "time": "16:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        150
+      ],
+      "session": "Malibu Plus",
+      "time": "12:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        150
+      ],
+      "session": "Malibu Plus",
+      "time": "14:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        150
+      ],
+      "session": "Malibu Plus",
+      "time": "12:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        150
+      ],
+      "session": "Malibu Plus",
+      "time": "14:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        160
+      ],
+      "session": "Malibu Plus",
+      "time": "12:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        160
+      ],
+      "session": "Malibu Plus",
+      "time": "14:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        160
+      ],
+      "session": "Malibu Plus",
+      "time": "12:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        160
+      ],
+      "session": "Malibu Plus",
+      "time": "14:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        150
+      ],
+      "session": "Malibu Plus",
+      "time": "12:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        150
+      ],
+      "session": "Malibu Plus",
+      "time": "14:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        150
+      ],
+      "session": "Malibu Plus",
+      "time": "12:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        150
+      ],
+      "session": "Malibu Plus",
+      "time": "14:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        150
+      ],
+      "session": "Malibu Plus",
+      "time": "12:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        150
+      ],
+      "session": "Malibu Plus",
+      "time": "14:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        210
+      ],
+      "session": "Malibu Turbo",
+      "time": "09:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        210
+      ],
+      "session": "Malibu Turbo",
+      "time": "09:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        240
+      ],
+      "session": "Malibu Turbo",
+      "time": "09:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        240
+      ],
+      "session": "Malibu Turbo",
+      "time": "09:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        210
+      ],
+      "session": "Malibu Turbo",
+      "time": "09:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        210
+      ],
+      "session": "Malibu Turbo",
+      "time": "09:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        210
+      ],
+      "session": "Malibu Turbo",
+      "time": "09:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        260
+      ],
+      "session": "Pro Barrel Fest",
+      "time": "11:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        260
+      ],
+      "session": "Pro Barrel Fest",
+      "time": "11:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        260
+      ],
+      "session": "Pro Barrel Fest",
+      "time": "11:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        260
+      ],
+      "session": "Pro Barrel Fest",
+      "time": "17:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        260
+      ],
+      "session": "Pro Barrel Fest",
+      "time": "11:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        260
+      ],
+      "session": "Pro Barrel Fest",
+      "time": "11:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        260
+      ],
+      "session": "Pro Barrel Fest",
+      "time": "11:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        270
+      ],
+      "session": "Pro Barrels",
+      "time": "13:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        270
+      ],
+      "session": "Pro Barrels",
+      "time": "20:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        270
+      ],
+      "session": "Pro Barrels",
+      "time": "13:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        270
+      ],
+      "session": "Pro Barrels",
+      "time": "13:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        270
+      ],
+      "session": "Pro Barrels",
+      "time": "20:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        200
+      ],
+      "session": "Pro Barrels",
+      "time": "18:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        270
+      ],
+      "session": "Pro Barrels",
+      "time": "13:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        270
+      ],
+      "session": "Pro Barrels",
+      "time": "13:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        270
+      ],
+      "session": "Pro Barrels",
+      "time": "13:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        200
+      ],
+      "session": "Pro Longboarding / Easy Shortboarding",
+      "time": "17:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        200
+      ],
+      "session": "Pro Longboarding / Easy Shortboarding",
+      "time": "17:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        200
+      ],
+      "session": "Pro Longboarding / Easy Shortboarding",
+      "time": "17:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        200
+      ],
+      "session": "Pro Longboarding / Easy Shortboarding",
+      "time": "17:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        180
+      ],
+      "session": "Pro Longboarding / Fun Shortboarding",
+      "time": "10:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        180
+      ],
+      "session": "Pro Longboarding / Fun Shortboarding",
+      "time": "10:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        180
+      ],
+      "session": "Pro Longboarding / Fun Shortboarding",
+      "time": "10:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        180
+      ],
+      "session": "Pro Longboarding / Fun Shortboarding",
+      "time": "16:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        180
+      ],
+      "session": "Pro Longboarding / Fun Shortboarding",
+      "time": "10:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        180
+      ],
+      "session": "Pro Longboarding / Fun Shortboarding",
+      "time": "10:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        180
+      ],
+      "session": "Pro Longboarding / Fun Shortboarding",
+      "time": "10:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        210
+      ],
+      "session": "Pro Turns",
+      "time": "19:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        190
+      ],
+      "session": "Pro Turns",
+      "time": "19:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        220
+      ],
+      "session": "Pro Turns",
+      "time": "19:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        190
+      ],
+      "session": "Pro Turns",
+      "time": "19:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        190
+      ],
+      "session": "Pro Turns",
+      "time": "19:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        190
+      ],
+      "session": "Pro Turns",
+      "time": "19:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        190
+      ],
+      "session": "Pro Turns",
+      "time": "19:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        200
+      ],
+      "session": "Progressive Carving",
+      "time": "08:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        200
+      ],
+      "session": "Progressive Carving",
+      "time": "08:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        220
+      ],
+      "session": "Progressive Carving",
+      "time": "08:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        200
+      ],
+      "session": "Progressive Carving",
+      "time": "08:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        200
+      ],
+      "session": "Progressive Carving",
+      "time": "08:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        200
+      ],
+      "session": "Progressive Carving",
+      "time": "08:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        210
+      ],
+      "session": "Progressive Carving & Turns",
+      "time": "07:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        230
+      ],
+      "session": "Turns to Barrel",
+      "time": "10:00"
+    },
+    {
+      "day": "Friday",
+      "prices": [
+        250
+      ],
+      "session": "Turns to Barrel",
+      "time": "18:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        230
+      ],
+      "session": "Turns to Barrel",
+      "time": "10:00"
+    },
+    {
+      "day": "Monday",
+      "prices": [
+        230
+      ],
+      "session": "Turns to Barrel",
+      "time": "18:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        250
+      ],
+      "session": "Turns to Barrel",
+      "time": "10:00"
+    },
+    {
+      "day": "Saturday",
+      "prices": [
+        250
+      ],
+      "session": "Turns to Barrel",
+      "time": "18:00"
+    },
+    {
+      "day": "Sunday",
+      "prices": [
+        250
+      ],
+      "session": "Turns to Barrel",
+      "time": "10:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        230
+      ],
+      "session": "Turns to Barrel",
+      "time": "10:00"
+    },
+    {
+      "day": "Thursday",
+      "prices": [
+        230
+      ],
+      "session": "Turns to Barrel",
+      "time": "18:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        230
+      ],
+      "session": "Turns to Barrel",
+      "time": "10:00"
+    },
+    {
+      "day": "Tuesday",
+      "prices": [
+        230
+      ],
+      "session": "Turns to Barrel",
+      "time": "18:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        230
+      ],
+      "session": "Turns to Barrel",
+      "time": "10:00"
+    },
+    {
+      "day": "Wednesday",
+      "prices": [
+        230
+      ],
+      "session": "Turns to Barrel",
+      "time": "18:00"
+    }
+  ],
+  "schema_version": 1
+}
