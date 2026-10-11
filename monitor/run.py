@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import subprocess
 import urllib.request
+import uuid
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('availability', ROOT / 'availability/server.py')
@@ -27,7 +28,7 @@ def read(path):
 
 
 def enqueue(state, kind, now, body):
-    key = now.strftime('%Y%m%dT%H%M%S%f%z') + '-' + kind
+    key = now.strftime('%Y%m%dT%H%M%S%f%z') + '-' + kind + '-' + uuid.uuid4().hex
     save(state / 'outbox' / (key + '.json'), {'kind': kind, 'body': body})
 
 
@@ -47,8 +48,8 @@ def pricing(state, now, fetch=availability.fetch_month):
     body = 'DSRT published pricing changed (may include schedule changes).\nhttps://book.dsrtsurf.com/app.html#/calendar\n'
     if changed:
         body += ''.join(difflib.unified_diff(
-            json.dumps(previous['groups'], indent=2).splitlines(True),
-            json.dumps(groups, indent=2).splitlines(True), fromfile='previous', tofile='current'))
+            json.dumps(previous['groups'], indent=2, sort_keys=True).splitlines(True),
+            json.dumps(groups, indent=2, sort_keys=True).splitlines(True), fromfile='previous', tofile='current'))
     if previous is None or changed:
         save(state / 'pricing/history' / (now.strftime('%Y%m%dT%H%M%S%f%z') + '.json'),
              dict(current, raw=raw, report=body if changed else 'Initial baseline.'))

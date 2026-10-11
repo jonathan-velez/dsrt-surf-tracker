@@ -4,6 +4,17 @@ The batch monitor runs with Python 3.11+ and jq. No Docker or third-party Python
 packages are required. The existing Compose deployment remains available for a
 future VPS and as a local fallback.
 
+## Verified activation — October 11, 2026
+
+GitHub run [38177107975](https://github.com/jonathan-velez/dsrt-surf-tracker/actions/runs/38177107975)
+completed successfully at 14:37 Los Angeles time. The generated `monitor-data`
+branch contains 166 pricing groups, 1,115 upcoming sessions across 13 queried
+months, and an error-free status record. The user confirmed receipt of the
+labeled migration test through the existing ntfy destination. Daily reports
+remain muted. Future scheduled invocations are not yet verified by observation.
+For later delivery checks, run the workflow with `notification_test=true`; this
+sends a clearly labeled test, not a simulated pricing change.
+
 ## Activate
 
 1. Commit and push the source, including `.github/workflows/monitor.yml`, to the

@@ -48,6 +48,13 @@ class MonitorTests(unittest.TestCase):
             self.assertEqual(1, len(remaining))
             self.assertEqual('availability', m.read(remaining[0])['kind'])
 
+    def test_test_message_does_not_overwrite_real_alert(self):
+        with tempfile.TemporaryDirectory() as folder:
+            state = Path(folder)
+            m.enqueue(state, 'pricing', NOW, 'Real change')
+            m.enqueue(state, 'pricing', NOW, 'Delivery test')
+            self.assertEqual(2, len(list((state / 'outbox').glob('*.json'))))
+
     def test_daily_cache_failure_and_retention(self):
         raw = {'_id': 'a', 'dateid': '2026-11-20', 'starttime': '10:00',
                'sessiontype': 'Turns', 'direction': 'Left', 'waveClass': 'reef',

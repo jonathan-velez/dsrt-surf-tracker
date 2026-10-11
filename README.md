@@ -2,15 +2,18 @@
 
 ## GitHub deployment
 
-The portable batch runner and scheduled Actions workflow are prepared for hosted
-pricing and daily availability monitoring. See [GitHub deployment](docs/github-deployment.md)
-for activation, state retention, optional notifications, and migration to a VPS
-or Cloudflare. Remote activation and first-run verification are still pending.
-The Docker instructions below describe the existing local deployment.
+The portable batch runner and scheduled Actions workflow are active on GitHub.
+The first hosted collection succeeded on October 11, 2026 at 14:37 Los Angeles
+time, saving 166 pricing groups and 1,115 upcoming sessions across 13 queried
+months. The pricing notification test was received by the user. See
+[GitHub deployment](docs/github-deployment.md) for state retention, notifications,
+and migration to a VPS or Cloudflare. The schedules are configured; future
+scheduled executions have not yet been observed. The Docker instructions below
+remain available for local use or a VPS.
 
-Pricing notifications were enabled locally on October 11. GitHub must receive
-the existing destination via `PRICING_NTFY_URL` before cutover; daily availability
-notifications remain muted unless `AVAILABILITY_NTFY_URL` is also configured.
+Pricing notifications use the existing destination stored in GitHub's
+`PRICING_NTFY_URL` secret. Daily availability notifications remain muted unless
+`AVAILABILITY_NTFY_URL` is also configured.
 
 changedetection.io monitors **published public reef pricing** every three hours at [localhost:5050](http://localhost:5050), with an optional catalog watch and a daily upcoming-availability watch. A small internal Python HTTP helper combines monthly calendars for the availability watch. Notifications start muted.
 
