@@ -1,0 +1,21 @@
+{
+  "title": "DSRT Surf — Session Catalog",
+  "url": "https://ep.dsrtsurf.com/api/sessions/types",
+  "link_to_open": "https://book.dsrtsurf.com/app.html#/calendar",
+  "fetch_backend": "html_requests",
+  "time_between_check": {
+    "weeks": 0,
+    "days": 0,
+    "hours": 3,
+    "minutes": 0,
+    "seconds": 0
+  },
+  "time_between_check_use_default": false,
+  "paused": true,
+  "notification_muted": true,
+  "notification_urls": [],
+  "notification_title": "DSRT session catalog changed",
+  "notification_body": "DSRT catalog templates changed. These may include unpublished products and are not bookable price floors.\nhttps://book.dsrtsurf.com/app.html#/calendar\n{{ diff }}",
+  "notification_format": "text",
+  "filter_failure_notification_send": false
+}
