@@ -96,7 +96,7 @@ This creates/updates **DSRT Surf — Session Catalog**, paused and muted. Unpaus
 
 **Deployment status:** active and verified on October 11, 2026. CD saved the initial report with 1,126 upcoming public sessions through November 18 after querying October 2026 through October 2027. The user approved `ALLOW_IANA_RESTRICTED_ADDRESSES=true` so CD can fetch the internal helper; this permits private-network fetching for all watches. The UI remains bound to localhost. All three watches reported no fetch errors after restart.
 
-The third watch, **DSRT Surf — Daily Upcoming Availability**, runs in CD's **22:00–23:00 America/Los_Angeles** window. Its 12-hour minimum interval allows one scheduled check per window while avoiding 24-hour drift and DST skips. The helper caches one successful collection per 22:00-to-22:00 period; manual rechecks reuse it. The initial setup creates a baseline immediately. Docker and the Mac must be awake during the nightly window; missed days produce a comparison spanning the gap.
+The third watch, **DSRT Surf — Daily Upcoming Availability**, runs in CD's **19:00–20:00 America/Los_Angeles** window. Its 12-hour minimum interval allows one scheduled check per window while avoiding 24-hour drift and DST skips. The helper caches one successful collection per 19:00-to-19:00 period; manual rechecks reuse it. The initial setup creates a baseline immediately. Docker and the Mac must be awake during the nightly window; missed days produce a comparison spanning the gap.
 
 ```sh
 docker compose up -d availability

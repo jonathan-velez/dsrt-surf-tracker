@@ -16,7 +16,7 @@
     "timezone": "America/Los_Angeles",
     "monday": {
       "enabled": true,
-      "start_time": "22:00",
+      "start_time": "19:00",
       "duration": {
         "hours": "1",
         "minutes": "0"
@@ -24,7 +24,7 @@
     },
     "tuesday": {
       "enabled": true,
-      "start_time": "22:00",
+      "start_time": "19:00",
       "duration": {
         "hours": "1",
         "minutes": "0"
@@ -32,7 +32,7 @@
     },
     "wednesday": {
       "enabled": true,
-      "start_time": "22:00",
+      "start_time": "19:00",
       "duration": {
         "hours": "1",
         "minutes": "0"
@@ -40,7 +40,7 @@
     },
     "thursday": {
       "enabled": true,
-      "start_time": "22:00",
+      "start_time": "19:00",
       "duration": {
         "hours": "1",
         "minutes": "0"
@@ -48,7 +48,7 @@
     },
     "friday": {
       "enabled": true,
-      "start_time": "22:00",
+      "start_time": "19:00",
       "duration": {
         "hours": "1",
         "minutes": "0"
@@ -56,7 +56,7 @@
     },
     "saturday": {
       "enabled": true,
-      "start_time": "22:00",
+      "start_time": "19:00",
       "duration": {
         "hours": "1",
         "minutes": "0"
@@ -64,7 +64,7 @@
     },
     "sunday": {
       "enabled": true,
-      "start_time": "22:00",
+      "start_time": "19:00",
       "duration": {
         "hours": "1",
         "minutes": "0"

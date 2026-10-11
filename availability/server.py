@@ -1,4 +1,4 @@
-"""Internal CD feed: multi-month availability and one cached report per 22:00 slot."""
+"""Internal CD feed: multi-month availability and one cached report per 19:00 slot."""
 import concurrent.futures
 import datetime as dt
 import json
@@ -109,7 +109,7 @@ def report(previous, current, now):
 
 def collect(now=None, fetch=fetch_month, state=STATE):
     now=now or dt.datetime.now(TZ)
-    slot=(now-dt.timedelta(hours=22)).date().isoformat()
+    slot=(now-dt.timedelta(hours=19)).date().isoformat()
     state.mkdir(parents=True,exist_ok=True)
     path=state/'latest.json'
     previous=json.loads(path.read_text()) if path.exists() else None
