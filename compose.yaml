@@ -1,4 +1,13 @@
 services:
+  availability:
+    image: ghcr.io/dgtlmoon/changedetection.io@sha256:34df3680db1cbffc45ac1e9c1514bc0507dd0c5b5fde47d1992fe6f14a7b40e4
+    entrypoint: ["python", "/service/server.py"]
+    volumes:
+      - ./availability:/service:ro
+      - availability-data:/state
+    environment:
+      TZ: America/Los_Angeles
+    restart: unless-stopped
   changedetection:
     image: ghcr.io/dgtlmoon/changedetection.io@sha256:34df3680db1cbffc45ac1e9c1514bc0507dd0c5b5fde47d1992fe6f14a7b40e4
     ports:
@@ -10,6 +19,9 @@ services:
       BASE_URL: http://localhost:5050
       FETCH_WORKERS: "1"
       DISABLE_VERSION_CHECK: "true"
+      # User-approved: allow fetching the internal availability service.
+      ALLOW_IANA_RESTRICTED_ADDRESSES: "true"
     restart: unless-stopped
 volumes:
   changedetection-data:
+  availability-data:

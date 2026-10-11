@@ -7,7 +7,11 @@ filter=${2:-filters/sessions.jq}
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 # A single selector: multiline jq is folded because UI selectors are line based.
-jq --rawfile filter "$filter" '. + {include_filters: ["jq:" + ($filter | split("\n") | map(select(startswith("#")|not)) | join(" "))]}' "$config" > "$tmp/watch.json"
+if [[ "$filter" == none ]]; then
+  jq '. + {include_filters: []}' "$config" > "$tmp/watch.json"
+else
+  jq --rawfile filter "$filter" '. + {include_filters: ["jq:" + ($filter | split("\n") | map(select(startswith("#")|not)) | join(" "))]}' "$config" > "$tmp/watch.json"
+fi
 title=$(jq -r .title "$config")
 api "$API_URL/watch" > "$tmp/watches.json"
 ids=$(jq -r --arg title "$title" 'to_entries[] | select(.value.title == $title) | .key' "$tmp/watches.json")

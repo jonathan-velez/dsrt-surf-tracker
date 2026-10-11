@@ -1,0 +1,81 @@
+{
+  "title": "DSRT Surf \u2014 Daily Upcoming Availability",
+  "url": "http://availability:8080/report",
+  "link_to_open": "https://book.dsrtsurf.com/app.html#/calendar",
+  "fetch_backend": "html_requests",
+  "time_between_check": {
+    "weeks": 0,
+    "days": 0,
+    "hours": 12,
+    "minutes": 0,
+    "seconds": 0
+  },
+  "time_between_check_use_default": false,
+  "time_schedule_limit": {
+    "enabled": true,
+    "timezone": "America/Los_Angeles",
+    "monday": {
+      "enabled": true,
+      "start_time": "22:00",
+      "duration": {
+        "hours": "1",
+        "minutes": "0"
+      }
+    },
+    "tuesday": {
+      "enabled": true,
+      "start_time": "22:00",
+      "duration": {
+        "hours": "1",
+        "minutes": "0"
+      }
+    },
+    "wednesday": {
+      "enabled": true,
+      "start_time": "22:00",
+      "duration": {
+        "hours": "1",
+        "minutes": "0"
+      }
+    },
+    "thursday": {
+      "enabled": true,
+      "start_time": "22:00",
+      "duration": {
+        "hours": "1",
+        "minutes": "0"
+      }
+    },
+    "friday": {
+      "enabled": true,
+      "start_time": "22:00",
+      "duration": {
+        "hours": "1",
+        "minutes": "0"
+      }
+    },
+    "saturday": {
+      "enabled": true,
+      "start_time": "22:00",
+      "duration": {
+        "hours": "1",
+        "minutes": "0"
+      }
+    },
+    "sunday": {
+      "enabled": true,
+      "start_time": "22:00",
+      "duration": {
+        "hours": "1",
+        "minutes": "0"
+      }
+    }
+  },
+  "paused": false,
+  "notification_muted": true,
+  "notification_urls": [],
+  "notification_title": "DSRT daily upcoming availability",
+  "notification_body": "{{ current_snapshot }}",
+  "notification_format": "text",
+  "filter_failure_notification_send": false
+}

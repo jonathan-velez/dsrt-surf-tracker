@@ -1,6 +1,18 @@
 # DSRT Surf price monitor
 
-A single changedetection.io container monitors **published public reef pricing** every three hours at [localhost:5050](http://localhost:5050). No browser, custom app, database service, or scraper. Notifications start muted.
+## GitHub deployment
+
+The portable batch runner and scheduled Actions workflow are prepared for hosted
+pricing and daily availability monitoring. See [GitHub deployment](docs/github-deployment.md)
+for activation, state retention, optional notifications, and migration to a VPS
+or Cloudflare. Remote activation and first-run verification are still pending.
+The Docker instructions below describe the existing local deployment.
+
+Pricing notifications were enabled locally on October 11. GitHub must receive
+the existing destination via `PRICING_NTFY_URL` before cutover; daily availability
+notifications remain muted unless `AVAILABILITY_NTFY_URL` is also configured.
+
+changedetection.io monitors **published public reef pricing** every three hours at [localhost:5050](http://localhost:5050), with an optional catalog watch and a daily upcoming-availability watch. A small internal Python HTTP helper combines monthly calendars for the availability watch. Notifications start muted.
 
 ## Start / stop
 
@@ -77,6 +89,26 @@ The prepared message identifies a **pricing change** and links to the booking ca
 ```
 
 This creates/updates **DSRT Surf — Session Catalog**, paused and muted. Unpause to collect informational history. The filter preserves ID, name, price, wave class/code, and skill fields, sorts deterministically, and removes exact duplicates. Conflicting definitions sharing an ID remain distinct. Missing optional fields become null; malformed required identity/price data errors out.
+
+## Daily upcoming availability
+
+**Deployment status:** active and verified on October 11, 2026. CD saved the initial report with 1,126 upcoming public sessions through November 18 after querying October 2026 through October 2027. The user approved `ALLOW_IANA_RESTRICTED_ADDRESSES=true` so CD can fetch the internal helper; this permits private-network fetching for all watches. The UI remains bound to localhost. All three watches reported no fetch errors after restart.
+
+The third watch, **DSRT Surf — Daily Upcoming Availability**, runs in CD's **22:00–23:00 America/Los_Angeles** window. Its 12-hour minimum interval allows one scheduled check per window while avoiding 24-hour drift and DST skips. The helper caches one successful collection per 22:00-to-22:00 period; manual rechecks reuse it. The initial setup creates a baseline immediately. Docker and the Mac must be awake during the nightly window; missed days produce a comparison spanning the gap.
+
+```sh
+docker compose up -d availability
+./scripts/setup-watch.sh config/availability.json none
+python3 tests/test_availability.py
+```
+
+Open the watch's Preview for the report or Diff/history for saved changes. It fetches the current month and the next 12 months, including empty intervening months, deduplicates overlapping calendars by session ID, and tracks all public, non-private reef and bay sessions. If the final month is populated it extends the search, up to 24 months ahead, and flags that limit if still populated. This is bounded discovery, not a promise of unlimited future coverage.
+
+The report lists availability decreases/increases, new and removed sessions, expired sessions, and the full upcoming inventory. Only clean reef availability decreases are totaled as **possible net bookings**. Capacity, cart, blocking, schedule, and shared bay inventory changes are excluded from those totals. Expired or missing sessions are never interpreted as bookings. The public API cannot establish gross sales or attendance, and bookings/cancellations between snapshots can offset each other.
+
+Malformed responses, HTTP failures, conflicting overlap records, and an entirely empty public calendar fail the watch without replacing the previous valid baseline. A syntactically valid partial API response cannot always be detected. Successful raw responses and reports persist in the `availability-data` Docker volume; CD also retains its usual history in `changedetection-data`. The helper has no host port and is reachable only on the Compose network at `http://availability:8080/report`. It reuses the already-pinned image's Python runtime, with no additional packages. The mistakenly created Codex chat automation is paused; scheduling belongs to CD.
+
+Notifications are muted like the existing watches. Daily reports are stored even on no-change days; configure a destination and unmute in CD if external delivery is wanted.
 
 ## Verification / troubleshooting
 

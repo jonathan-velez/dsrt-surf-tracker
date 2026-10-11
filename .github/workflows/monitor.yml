@@ -1,0 +1,92 @@
+name: DSRT monitor
+on:
+  schedule:
+    - cron: '17 */3 * * *'
+    # 22:17 Los Angeles is 05:17 or 06:17 UTC, depending on DST.
+    - cron: '17 5,6 * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Collection to run (all creates an immediate daily baseline)
+        type: choice
+        options: [all, pricing, daily]
+        default: all
+      notification_test:
+        description: Send one clearly labeled migration test to the pricing destination
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: dsrt-monitor-data
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PRICING_NTFY_URL: ${{ secrets.PRICING_NTFY_URL }}
+      AVAILABILITY_NTFY_URL: ${{ secrets.AVAILABILITY_NTFY_URL }}
+      REPORT_URL: https://github.com/${{ github.repository }}/tree/monitor-data
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Select collection
+        id: select
+        env:
+          EVENT: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+          MANUAL_MODE: ${{ inputs.mode }}
+        run: |
+          if [ "$EVENT" = workflow_dispatch ]; then
+            echo "mode=$MANUAL_MODE" >> "$GITHUB_OUTPUT"
+          elif [ "$SCHEDULE" = '17 */3 * * *' ]; then
+            echo 'mode=pricing' >> "$GITHUB_OUTPUT"
+          elif [ "$(TZ=America/Los_Angeles date +%H)" = 22 ]; then
+            echo 'mode=daily' >> "$GITHUB_OUTPUT"
+          else
+            echo 'mode=skip' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Restore durable state
+        if: steps.select.outputs.mode != 'skip'
+        run: |
+          test -n "$PRICING_NTFY_URL" || { echo 'PRICING_NTFY_URL secret is required to preserve existing alerts'; exit 1; }
+          git config user.name 'DSRT monitor'
+          git config user.email 'dsrt-monitor@users.noreply.github.com'
+          # A network/auth failure must abort, never masquerade as first setup.
+          refs=$(git ls-remote --heads origin refs/heads/monitor-data)
+          if [ -n "$refs" ]; then
+            git fetch origin refs/heads/monitor-data
+            git worktree add --detach .monitor-state FETCH_HEAD
+          else
+            git worktree add --detach --no-checkout .monitor-state HEAD
+            git -C .monitor-state switch --orphan monitor-data
+          fi
+      - name: Collect and compare
+        id: collect
+        if: steps.select.outputs.mode != 'skip'
+        env:
+          NOTIFICATION_TEST: ${{ inputs.notification_test }}
+        run: |
+          args=()
+          if [ "$NOTIFICATION_TEST" = true ]; then args+=(--notification-test); fi
+          python3 monitor/run.py --state .monitor-state --mode '${{ steps.select.outputs.mode }}' "${args[@]}"
+      - name: Persist successful collections even if another collection failed
+        id: persist
+        if: always() && steps.collect.outcome != 'skipped' && steps.collect.outcome != ''
+        run: |
+          git -C .monitor-state add --all
+          if ! git -C .monitor-state diff --cached --quiet; then
+            git -C .monitor-state commit -m 'Record DSRT observation'
+            git -C .monitor-state push origin HEAD:refs/heads/monitor-data
+          fi
+      - name: Deliver optional notifications after saving state
+        if: always() && steps.persist.outcome == 'success'
+        run: python3 monitor/run.py --state .monitor-state --mode notify
+      - name: Persist notification acknowledgements
+        if: always() && steps.persist.outcome == 'success'
+        run: |
+          git -C .monitor-state add --all
+          if ! git -C .monitor-state diff --cached --quiet; then
+            git -C .monitor-state commit -m 'Record notification delivery'
+            git -C .monitor-state push origin HEAD:refs/heads/monitor-data
+          fi
