@@ -27,6 +27,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--config', type=Path, default=ROOT / '.local/watch.json')
     parser.add_argument('--check', action='store_true')
+    parser.add_argument('--watch', choices=('pricing', 'availability'), default='pricing')
     args = parser.parse_args()
     settings = json.loads(args.config.read_text())
     urls = settings.get('notification_urls', [])
@@ -37,10 +38,11 @@ def main():
         print('One enabled public ntfy pricing destination can be migrated; URL redacted.')
         return
     env = dict(os.environ, GH_CONFIG_DIR=str(ROOT / '.local/github'))
-    subprocess.run(['gh', 'secret', 'set', 'PRICING_NTFY_URL', '--repo',
+    name = 'PRICING_NTFY_URL' if args.watch == 'pricing' else 'AVAILABILITY_NTFY_URL'
+    subprocess.run(['gh', 'secret', 'set', name, '--repo',
                     'jonathan-velez/dsrt-surf-tracker'], input=destination,
                    text=True, env=env, check=True)
-    print('Pricing destination uploaded as PRICING_NTFY_URL; daily alerts remain muted.')
+    print(f'Existing destination uploaded as {name}; URL redacted.')
 
 
 if __name__ == '__main__':

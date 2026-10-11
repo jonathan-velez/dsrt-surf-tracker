@@ -133,11 +133,12 @@ def main():
             errors.append(kind + ': ' + type(exc).__name__)
     prune(args.state, args.retention_days, now)
     if args.notification_test and not errors:
-        if not destination('pricing'):
-            raise SystemExit('Pricing notification destination is required for the delivery test')
-        enqueue(args.state, 'pricing', now,
-                'DSRT GitHub migration: notification delivery test. '
-                'This is a setup test, not a detected pricing change.')
+        kind = 'availability' if args.mode == 'daily' else 'pricing'
+        if not destination(kind):
+            raise SystemExit(f'{kind} notification destination is required for the delivery test')
+        enqueue(args.state, kind, now,
+                f'DSRT GitHub {kind}: notification delivery test. '
+                'This is a setup test, not a detected change.')
     # Keep each watch's independent mute setting. Never send a muted backlog.
     for path in (args.state / 'outbox').glob('*.json'):
         if not destination(read(path)['kind']):

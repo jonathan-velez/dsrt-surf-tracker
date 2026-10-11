@@ -15,8 +15,9 @@ Both hosted validation runs passed. Local Docker collectors are stopped to
 avoid duplicate monitoring; their history volumes remain intact.
 
 Pricing notifications use the existing destination stored in GitHub's
-`PRICING_NTFY_URL` secret. Daily availability notifications remain muted unless
-`AVAILABILITY_NTFY_URL` is also configured.
+`PRICING_NTFY_URL` secret. Daily availability reports are enabled on the same
+destination through `AVAILABILITY_NTFY_URL`. Each nightly report includes a
+summary and a link to the saved full report when it exceeds notification limits.
 
 changedetection.io monitors **published public reef pricing** every three hours at [localhost:5050](http://localhost:5050), with an optional catalog watch and a daily upcoming-availability watch. A small internal Python HTTP helper combines monthly calendars for the availability watch. Notifications start muted.
 

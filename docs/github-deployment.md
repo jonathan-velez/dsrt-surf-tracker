@@ -11,7 +11,8 @@ completed successfully at 14:37 Los Angeles time. The generated `monitor-data`
 branch contains 166 pricing groups, 1,115 upcoming sessions across 13 queried
 months, and an error-free status record. The user confirmed receipt of the
 labeled migration test through the existing ntfy destination. Daily reports
-remain muted. Future scheduled invocations are not yet verified by observation.
+were initially muted, then enabled on the same ntfy destination at the user's
+request on October 11. Future scheduled invocations are not yet verified by observation.
 The second run [38177206483](https://github.com/jonathan-velez/dsrt-surf-tracker/actions/runs/38177206483)
 successfully restored the baselines, reused the daily slot cache, and completed
 with no errors or pending notifications. Both local Compose containers were
@@ -19,7 +20,8 @@ then stopped; `changedetection-data` and `availability-data` volumes remain
 intact with the historical local records. To resume the fallback, use
 `docker compose start` after disabling GitHub's workflow.
 For later delivery checks, run the workflow with `notification_test=true`; this
-sends a clearly labeled test, not a simulated pricing change.
+sends a clearly labeled test, not a simulated change. Mode `daily` tests the
+availability destination; other modes test the pricing destination.
 
 ## Activate
 
@@ -38,10 +40,10 @@ sends a clearly labeled test, not a simulated pricing change.
 5. Once the GitHub run succeeds, stop the local Compose services if you want only
    one active collector. Do not remove the Docker volumes.
 
-Preserve the existing settings: pricing notifications are enabled in the local
-deployment, while availability notifications are muted. Before cutover, set the
-repository Actions secret `PRICING_NTFY_URL` to the existing destination's HTTPS
-topic URL. Leave `AVAILABILITY_NTFY_URL` unset to retain the daily watch's mute.
+Both pricing notifications and daily availability reports are enabled on GitHub.
+Set repository Actions secrets `PRICING_NTFY_URL` and `AVAILABILITY_NTFY_URL` to
+the existing destination's HTTPS topic URL. Removing `AVAILABILITY_NTFY_URL`
+mutes daily delivery while retaining collection and saved reports.
 The workflow cannot read local Docker notification settings automatically.
 For the existing public ntfy configuration, upload it without exposing the URL:
 
@@ -49,6 +51,7 @@ For the existing public ntfy configuration, upload it without exposing the URL:
 GH_CONFIG_DIR="$PWD/.local/github" gh auth login --hostname github.com
 python3 scripts/configure-github-notifications.py --check
 python3 scripts/configure-github-notifications.py
+python3 scripts/configure-github-notifications.py --watch availability
 ```
 
 The alternate ignored CLI configuration directory avoids this Mac's root-owned

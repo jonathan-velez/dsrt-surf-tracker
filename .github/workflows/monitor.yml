@@ -12,7 +12,7 @@ on:
         options: [all, pricing, daily]
         default: all
       notification_test:
-        description: Send one clearly labeled migration test to the pricing destination
+        description: Send one labeled test (availability for daily mode, otherwise pricing)
         type: boolean
         default: false
 permissions:
