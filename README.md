@@ -1,12 +1,14 @@
 # Nudge List
 
-A personal monitoring list powered by changedetection.io. Its first active use case monitors **DSRT's published public reef pricing** every three hours at [localhost:5050](http://localhost:5050), with an optional catalog watch and a daily upcoming-availability watch. A small internal Python HTTP helper combines monthly calendars for the availability watch.
+A personal monitoring list powered by changedetection.io. It monitors **DSRT's
+published public reef pricing** every three hours at
+[localhost:5050](http://localhost:5050), with an optional catalog watch and a
+daily upcoming-availability watch. A small internal Python HTTP helper combines
+monthly calendars for the availability watch.
 
-Local Docker monitoring is restored. Pricing and daily availability notifications
-use the existing ntfy destination; the optional catalog remains paused and muted.
-GitHub Actions monitoring is disabled and its workflow removed. GitHub's saved
-records remain on the `monitor-data` branch and are archived under ignored
-`.local/archive/`; they have not been imported into local dashboard history.
+The monitor runs locally in Docker. Pricing and daily availability notifications
+use the configured ntfy destination; the optional catalog remains paused and
+muted.
 
 ## Start / stop
 
@@ -15,12 +17,15 @@ Prerequisites: Docker Desktop running on macOS (Apple Silicon supported), Docker
 ```sh
 docker compose up -d
 # Wait for the dashboard to load, then:
-# Existing configured deployment (preserves enabled alerts for both watches):
+# Configure notifications and create or update the active watches:
 bash scripts/setup-local.sh
 # Fresh setup without notifications: ./scripts/setup-watch.sh
 ```
 
-Open http://localhost:5050. The official image is pinned to the tested digest (changedetection.io 0.60.8); it includes Python jq. The web port binds only to `127.0.0.1`, with timezone `America/Los_Angeles`. State and history live in the named Docker volume.
+Open http://localhost:5050. The official image is pinned to a
+changedetection.io 0.60.8 digest and includes Python jq. The web port binds
+only to `127.0.0.1`, with timezone `America/Los_Angeles`. State and history
+live in the named Docker volume.
 
 ```sh
 docker compose stop        # stop, retain container and history
@@ -51,9 +56,9 @@ Grouping hides a session's expiration when another session still represents the 
 
 ## Settings and history
 
-For this configured deployment, edit ignored `.local/watch.json` and rerun
-`bash scripts/setup-local.sh`. This applies its existing notification destination
-to both pricing and availability watches. Edit `filters/sessions.jq` the same way.
+To configure notifications, edit ignored `.local/watch.json` and rerun
+`bash scripts/setup-local.sh`. This applies its notification destination to both
+pricing and availability watches. Edit `filters/sessions.jq` the same way.
 The setup script finds the exact title, creates or updates one watch, and refuses
 ambiguous duplicate titles. Keep titles stable to retain identity/history.
 Tracked `config/*.json` are muted templates: applying them directly will mute
@@ -63,7 +68,8 @@ Change `time_between_check.hours` to adjust polling. Checks use the normal HTTP 
 
 The script reads the local instance's API key from its Docker volume without printing it. Alternatively set `CHANGEDETECTION_API_KEY` and `API_URL` in your environment. Do not commit credentials. Local web access is not password protected by this setup; an optional UI password is available in changedetection.io settings.
 
-The image may create example watches on first startup. They can be deleted in the dashboard; setup deliberately does not delete unrelated watches. The initial deployment's examples were removed.
+The image may create example watches on first startup. They can be deleted in
+the dashboard; setup deliberately does not delete unrelated watches.
 
 ## Optional ntfy notifications
 
@@ -82,7 +88,13 @@ cp config/watch.json .local/watch.json
 ./scripts/setup-watch.sh .local/watch.json
 ```
 
-The prepared message identifies a **pricing change** and links to the booking calendar. It does not claim price-drop-only alerts. The existing ntfy destination is configured for both local active watches and kept out of version control. A future strict decrease-only mode would need a small comparator at a notification/webhook boundary that matches group identities and compares numeric tiers; native textual diffs alone are insufficient. This is intentionally not implemented.
+The prepared message identifies a **pricing change** and links to the booking
+calendar. It does not claim price-drop-only alerts. The configured ntfy
+destination is used by both local active watches and kept out of version
+control. A strict decrease-only mode would need a small comparator at a
+notification/webhook boundary that matches group identities and compares numeric
+tiers; native textual diffs alone are insufficient. This is intentionally not
+implemented.
 
 ## Optional catalog
 
@@ -94,9 +106,17 @@ This creates/updates **DSRT Surf — Session Catalog**, paused and muted. Unpaus
 
 ## Daily upcoming availability
 
-**Deployment status:** active and verified on October 11, 2026. CD saved the initial report with 1,126 upcoming public sessions through November 18 after querying October 2026 through October 2027. The user approved `ALLOW_IANA_RESTRICTED_ADDRESSES=true` so CD can fetch the internal helper; this permits private-network fetching for all watches. The UI remains bound to localhost. All three watches reported no fetch errors after restart.
+`ALLOW_IANA_RESTRICTED_ADDRESSES=true` allows changedetection.io to fetch the
+internal availability helper. It permits private-network fetching for every
+watch, so only add watches you trust. The UI remains bound to localhost.
 
-The third watch, **DSRT Surf — Daily Upcoming Availability**, runs in CD's **19:00–20:00 America/Los_Angeles** window. Its 12-hour minimum interval allows one scheduled check per window while avoiding 24-hour drift and DST skips. The helper caches one successful collection per 19:00-to-19:00 period; manual rechecks reuse it. The initial setup creates a baseline immediately. Docker and the Mac must be awake during the nightly window; missed days produce a comparison spanning the gap.
+The **DSRT Surf — Daily Upcoming Availability** watch runs in CD's
+**19:00–20:00 America/Los_Angeles** window. Its 12-hour minimum interval allows
+one scheduled check per window while avoiding 24-hour drift and DST skips. The
+helper caches one successful collection per 19:00-to-19:00 period; manual
+rechecks reuse it. Setup creates a baseline immediately. Docker and the Mac
+must be awake during the nightly window; missed days produce a comparison
+spanning the gap.
 
 ```sh
 docker compose up -d availability
@@ -108,11 +128,18 @@ Open the watch's Preview for the report or Diff/history for saved changes. It fe
 
 The report lists availability decreases/increases, new and removed sessions, expired sessions, and the full upcoming inventory. Only clean reef availability decreases are totaled as **possible net bookings**. Capacity, cart, blocking, schedule, and shared bay inventory changes are excluded from those totals. Expired or missing sessions are never interpreted as bookings. The public API cannot establish gross sales or attendance, and bookings/cancellations between snapshots can offset each other.
 
-Malformed responses, HTTP failures, conflicting overlap records, and an entirely empty public calendar fail the watch without replacing the previous valid baseline. A syntactically valid partial API response cannot always be detected. Successful raw responses and reports persist in the `availability-data` Docker volume; CD also retains its usual history in `changedetection-data`. The helper has no host port and is reachable only on the Compose network at `http://availability:8080/report`. It reuses the already-pinned image's Python runtime, with no additional packages. The mistakenly created Codex chat automation is paused; scheduling belongs to CD.
+Malformed responses, HTTP failures, conflicting overlap records, and an entirely
+empty public calendar fail the watch without replacing the previous valid
+baseline. A syntactically valid partial API response cannot always be detected.
+Successful raw responses and reports persist in the `availability-data` Docker
+volume; CD also retains its usual history in `changedetection-data`. The helper
+has no host port and is reachable only on the Compose network at
+`http://availability:8080/report`. It reuses the already-pinned image's Python
+runtime, with no additional packages. Scheduling belongs to CD.
 
-Daily reports are stored even on no-change days. Notifications are enabled on the
-same existing ntfy destination as pricing. Use `bash scripts/setup-local.sh` to
-reapply this configuration; the tracked availability JSON remains a muted template.
+Daily reports are stored even on no-change days. Notifications use the same ntfy
+destination as pricing. Use `bash scripts/setup-local.sh` to apply this
+configuration; the tracked availability JSON remains a muted template.
 
 ## Verification / troubleshooting
 
