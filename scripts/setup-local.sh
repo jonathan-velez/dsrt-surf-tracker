@@ -13,5 +13,10 @@ trap 'rm -rf "$tmp"' EXIT
 jq --slurpfile pricing "$pricing" \
   '. + {notification_muted: false, notification_urls: $pricing[0].notification_urls}' \
   config/availability.json > "$tmp/availability.json"
-./scripts/setup-watch.sh "$pricing"
+# Keep local notification destinations, but always apply the current feed and message.
+jq --slurpfile local "$pricing" \
+  '. + {notification_muted: false, notification_urls: $local[0].notification_urls,
+        time_between_check: $local[0].time_between_check}' \
+  config/watch.json > "$tmp/pricing.json"
+./scripts/setup-watch.sh "$tmp/pricing.json" none
 ./scripts/setup-watch.sh "$tmp/availability.json" none

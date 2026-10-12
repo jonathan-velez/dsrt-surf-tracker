@@ -3,8 +3,8 @@
 A personal monitoring list powered by changedetection.io. It monitors **DSRT's
 published public reef pricing** every three hours at
 [localhost:5050](http://localhost:5050), with an optional catalog watch and a
-daily upcoming-availability watch. A small internal Python HTTP helper combines
-monthly calendars for the availability watch.
+daily upcoming-availability watch. Small internal Python helpers store session
+price baselines and combine monthly calendars for availability.
 
 The monitor runs locally in Docker. Pricing and daily availability notifications
 use the configured ntfy destination; the optional catalog remains paused and
@@ -38,9 +38,27 @@ Docker Desktop and the Mac must remain awake for checks. Restart policy is `unle
 
 ## What it measures
 
-`filters/sessions.jq` selects `waveClass=reef`, `audience=public`, and excludes `privateSession=true` (DSRT labels some private sessions public). It groups by exact session name, weekday, and start time, keeping sorted distinct effective prices. It uses numeric `currentPrice`, falling back to `price` only when currentPrice is absent/null. Invalid prices cause errors rather than silently falling back. Integer/decimal formatting is normalized.
+`pricing/server.py` selects `waveClass=reef`, `audience=public`, and excludes
+`privateSession=true`. It stores each upcoming session's effective price by
+DSRT session ID in the persistent `pricing-data` Docker volume. The effective
+price is numeric `currentPrice`, with `price` fallback only when currentPrice
+is absent/null. Integer/decimal formatting is equivalent.
 
-Availability, capacity, IDs, and duplicate directions do not affect the result. Different direction prices remain distinct. Blocked and sold-out public sessions remain included. New names/types and both increases and decreases are detected.
+Only an increase or decrease for an already observed session ID changes the
+feed and triggers an alert. Every successful collection updates the baseline.
+New sessions establish their baseline silently; removals, expiration, names,
+directions, availability, capacity, and calendar rollover do not trigger alerts.
+Missing future sessions retain their last observed price until their start time,
+so temporary disappearance/reappearance does not reset their baseline. Expired
+baseline entries are pruned. A changed price on a replacement/new session ID
+cannot be confirmed as a price edit and establishes a new baseline silently.
+
+The alert report includes the session, date/time, direction, ID, and old/new price.
+The last price-change report stays identical through subsequent no-change checks
+and restarts; there is no alert when the report returns to an empty state.
+Prices and report are saved together with an atomic file replacement. CD retains
+its usual history and sends notifications. `filters/sessions.jq` remains available
+for legacy normalization tests; the active watch uses the helper without jq.
 
 - **Published pricing:** prices attached to scheduled public reef sessions, even when unavailable.
 - **Currently bookable pricing:** would additionally require availability, booking mode, blocking, and checkout validation; this monitor does not promise that a displayed price can be booked.
@@ -50,21 +68,41 @@ Empty, malformed, wrong-schema, and failed HTTP responses produce watch errors a
 
 ## Dates and normal calendar changes
 
-The URL uses changedetection.io's native `{% now 'America/Los_Angeles', '%Y-%m' %}` template. **No monthly script or manual update is needed.** The API returns a padded calendar window for the selected month, not all future sessions. `upcoming=true` removes past sessions, including started sessions on the current day. See [live API findings](docs/api-findings.md).
+The internal feed at `http://pricing:8080/report` requests the Pacific current
+month from DSRT with `upcoming=true` at each check. No monthly script or manual
+update is needed. The API returns a padded calendar window, not all future
+sessions, and removes started/past sessions. See [live API findings](docs/api-findings.md).
+The pricing watch retains its current-month coverage; daily availability has its
+own broader horizon. Removed sessions and month rollover update stored baseline
+state without changing the price alert payload.
 
-Grouping hides a session's expiration when another session still represents the same group/price. When the last representative of a group/tier disappears, a change is unavoidable. New schedules and month rollover may also change groups without a price edit. The current-month watch does not cover all farther-future inventory. These limits deliberately avoid a separate stateful aggregation engine.
+For an existing deployment, migrate the watch once with:
+
+```sh
+docker compose up -d pricing
+bash scripts/migrate-pricing.sh
+```
+
+The migration retains watch identity, settings, and history. It mutes the format
+transition, verifies a successful new baseline, and restores the previous mute
+and pause settings. Existing history remains available; the new per-session
+baseline starts at migration because old grouped snapshots lack session IDs.
+Local `.env` preserves the existing Docker project name `dsrt-surf-tracker` after
+the repository rename, keeping its existing history volumes. Keep that value
+when operating this installation.
 
 ## Settings and history
 
 To configure notifications, edit ignored `.local/watch.json` and rerun
 `bash scripts/setup-local.sh`. This applies its notification destination to both
-pricing and availability watches. Edit `filters/sessions.jq` the same way.
+pricing and availability watches. The current feed and message are taken from
+`config/watch.json`; local notification destinations and polling interval are retained.
 The setup script finds the exact title, creates or updates one watch, and refuses
 ambiguous duplicate titles. Keep titles stable to retain identity/history.
 Tracked `config/*.json` are muted templates: applying them directly will mute
 the corresponding watch.
 
-Change `time_between_check.hours` to adjust polling. Checks use the normal HTTP fetcher. Click the watch's **Diff/history** controls to inspect saved versions; the watch's human-facing link opens [DSRT's calendar](https://book.dsrtsurf.com/app.html#/calendar). Filter changes can themselves cause a historical diff.
+Change `time_between_check.hours` to adjust polling. Checks use the normal HTTP fetcher against the internal helper. Click the watch's **Diff/history** controls to inspect saved versions; the watch's human-facing link opens [DSRT's calendar](https://book.dsrtsurf.com/app.html#/calendar). Filter changes can themselves cause a historical diff.
 
 The script reads the local instance's API key from its Docker volume without printing it. Alternatively set `CHANGEDETECTION_API_KEY` and `API_URL` in your environment. Do not commit credentials. Local web access is not password protected by this setup; an optional UI password is available in changedetection.io settings.
 
@@ -88,13 +126,10 @@ cp config/watch.json .local/watch.json
 ./scripts/setup-watch.sh .local/watch.json
 ```
 
-The prepared message identifies a **pricing change** and links to the booking
-calendar. It does not claim price-drop-only alerts. The configured ntfy
-destination is used by both local active watches and kept out of version
-control. A strict decrease-only mode would need a small comparator at a
-notification/webhook boundary that matches group identities and compares numeric
-tiers; native textual diffs alone are insufficient. This is intentionally not
-implemented.
+The prepared message reports actual price increases or decreases and links to
+the booking calendar. It includes the latest price-change report rather than
+calendar schedule diffs. The configured ntfy destination is used by both local
+active watches and kept out of version control.
 
 ## Optional catalog
 
@@ -107,7 +142,7 @@ This creates/updates **DSRT Surf — Session Catalog**, paused and muted. Unpaus
 ## Daily upcoming availability
 
 `ALLOW_IANA_RESTRICTED_ADDRESSES=true` allows changedetection.io to fetch the
-internal availability helper. It permits private-network fetching for every
+internal pricing and availability helpers. It permits private-network fetching for every
 watch, so only add watches you trust. The UI remains bound to localhost.
 
 The **DSRT Surf — Daily Upcoming Availability** watch runs in CD's
@@ -144,13 +179,14 @@ configuration; the tracked availability JSON remains a muted template.
 ## Verification / troubleshooting
 
 ```sh
+python3 tests/test_pricing.py -v
 ./tests/test-normalization.sh
 ./tests/test-integration.sh
 docker compose ps
 docker compose logs --tail=80 changedetection
 ```
 
-Integration tests run the same pinned image in a disposable, network-isolated container, with synthetic JSON served on its internal loopback interface. Test state is tmpfs, the repository is mounted read-only, and no production history is modified. Python is used only in that disposable test harness; the monitor uses native changedetection.io and jq.
+Integration tests run the same pinned image in a disposable, network-isolated container, with synthetic JSON served on its internal loopback interface. Test state is tmpfs, the repository is mounted read-only, and no production history is modified. The tests cover both legacy jq normalization and the persistent pricing helper through CD's actual fetcher and history engine. Synthetic price tests never modify production state or send notifications.
 
 On API/network errors, inspect the watch's error and press Recheck after recovery. Do not clear history to hide failures. Check Docker is awake, internet/DNS works, and DSRT still exposes the expected schema. A sudden no-public-reef error may mean the calendar has no published sessions or the API changed. Do not relax validation without inspecting the response.
 

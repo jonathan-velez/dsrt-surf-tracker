@@ -1,3 +1,44 @@
+# Pricing baseline validation — 2026-10-12
+
+The active **DSRT Surf — Published Session Pricing** watch now fetches
+`http://pricing:8080/report`. The helper stores prices by session ID in the
+`dsrt-surf-tracker_pricing-data` Docker volume and emits a changed report only
+for an observed session's numeric price increase or decrease. New sessions,
+removals, expiration, and calendar rollover are silent.
+
+Ten offline baseline tests passed, covering last-group removal, new sessions,
+updated-price comparisons, missing/reappearing sessions, expired-session pruning,
+nonprice edits, exclusions, validation/network failures, conflicting duplicates,
+restart persistence, and month/year rollover. The 24 legacy jq normalization
+checks and six availability regression tests also passed.
+
+The disposable Docker integration suite passed both its legacy jq checks and
+the new helper-through-CD pipeline. It confirmed that schedule removals and new
+discounted sessions leave CD history unchanged; a 220-to-200 decrease and a
+200-to-210 increase add history; subsequent unchanged checks and helper restart
+are silent. Empty calendars/upstream failures preserve the valid baseline and
+CD history, and recovery does not add a spurious change. Test notifications
+remained muted; no live delivery test was sent.
+
+Production migration preserved pricing watch ID
+`1b83eac3-52f7-4a20-a542-cbf10d9d10b4` and existing history. Its new baseline
+contains 645 session prices. The one-time format transition was muted, then the
+previous enabled notifications and three-hour polling interval were restored.
+A live unchanged recheck passed with no new history entry or notification;
+notification alert count remained six. No fetch error was reported. Local
+`.env` retains the pre-rename Compose project name so existing volumes remain
+attached. The availability and catalog watches were not reconfigured.
+
+The baseline starts at migration; legacy grouped pricing history cannot supply
+per-session IDs. Pricing coverage remains the Pacific current month's padded
+calendar. A replacement session with a new ID establishes its baseline silently.
+
+The entries below describe earlier deployment snapshots and are historical.
+Their old pricing behavior and notification status do not describe the current
+pricing watch.
+
+---
+
 # Deployment validation — 2026-10-11
 
 ## Local restoration after GitHub trial

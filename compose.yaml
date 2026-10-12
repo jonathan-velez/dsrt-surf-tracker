@@ -1,4 +1,13 @@
 services:
+  pricing:
+    image: ghcr.io/dgtlmoon/changedetection.io@sha256:34df3680db1cbffc45ac1e9c1514bc0507dd0c5b5fde47d1992fe6f14a7b40e4
+    entrypoint: ["python", "/service/server.py"]
+    volumes:
+      - ./pricing:/service:ro
+      - pricing-data:/state
+    environment:
+      TZ: America/Los_Angeles
+    restart: unless-stopped
   availability:
     image: ghcr.io/dgtlmoon/changedetection.io@sha256:34df3680db1cbffc45ac1e9c1514bc0507dd0c5b5fde47d1992fe6f14a7b40e4
     entrypoint: ["python", "/service/server.py"]
@@ -23,5 +32,6 @@ services:
       ALLOW_IANA_RESTRICTED_ADDRESSES: "true"
     restart: unless-stopped
 volumes:
+  pricing-data:
   changedetection-data:
   availability-data:

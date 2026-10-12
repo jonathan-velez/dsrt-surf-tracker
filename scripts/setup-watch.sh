@@ -3,7 +3,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 source scripts/api.sh
 config=${1:-config/watch.json}
-filter=${2:-filters/sessions.jq}
+filter=${2:-none}
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 # A single selector: multiline jq is folded because UI selectors are line based.

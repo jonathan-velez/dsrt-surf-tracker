@@ -1,6 +1,6 @@
 {
   "title": "DSRT Surf — Published Session Pricing",
-  "url": "https://ep.dsrtsurf.com/api/sessions/with/{% now 'America/Los_Angeles', '%Y-%m' %}?upcoming=true",
+  "url": "http://pricing:8080/report",
   "link_to_open": "https://book.dsrtsurf.com/app.html#/calendar",
   "fetch_backend": "html_requests",
   "time_between_check": {"weeks": 0, "days": 0, "hours": 3, "minutes": 0, "seconds": 0},
@@ -9,7 +9,7 @@
   "notification_muted": true,
   "notification_urls": [],
   "notification_title": "DSRT published session pricing changed",
-  "notification_body": "DSRT published pricing changed (may be an increase, decrease, or schedule change).\nBook: https://book.dsrtsurf.com/app.html#/calendar\n{{ diff }}",
+  "notification_body": "DSRT published session prices changed.\nBook: https://book.dsrtsurf.com/app.html#/calendar\n{{ current_snapshot }}",
   "notification_format": "text",
   "filter_failure_notification_send": false
 }
