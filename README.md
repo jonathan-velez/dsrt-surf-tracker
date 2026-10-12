@@ -1,6 +1,6 @@
-# DSRT Surf price monitor
+# Nudge List
 
-changedetection.io monitors **published public reef pricing** every three hours at [localhost:5050](http://localhost:5050), with an optional catalog watch and a daily upcoming-availability watch. A small internal Python HTTP helper combines monthly calendars for the availability watch.
+A personal monitoring list powered by changedetection.io. Its first active use case monitors **DSRT's published public reef pricing** every three hours at [localhost:5050](http://localhost:5050), with an optional catalog watch and a daily upcoming-availability watch. A small internal Python HTTP helper combines monthly calendars for the availability watch.
 
 Local Docker monitoring is restored. Pricing and daily availability notifications
 use the existing ntfy destination; the optional catalog remains paused and muted.
